@@ -1,1 +1,1 @@
-export const image = require('./pic1.jpg')
+export const image = undefined

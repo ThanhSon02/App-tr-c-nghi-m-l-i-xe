@@ -5,13 +5,14 @@ import Quiz from './components/Quiz';
 
 function App() {
   const [isStart, setIsStart] = useState(false)
+  const [answer, setAnswer] = useState([])
 
   const startQuiz = () => {
     setIsStart(!isStart)
   }
 
   return (
-    <div className="bg-gray-800">
+    <>
       {/* Wellcome Page */}
       <Start
         isStart={isStart}
@@ -20,9 +21,9 @@ function App() {
 
       {/* Quiz Page */}
       <Quiz
-
+        sendAns={setAnswer}
       />
-    </div>
+    </>
   );
 }
 

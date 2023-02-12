@@ -1,6 +1,6 @@
 function Start({ isStart, startQuiz }) {
     return (
-      <section className="h-screen" style={{display: `${isStart ? 'block' : 'none'}`}}>
+      <section className="bg-slate-700" style={{display: `${isStart ? 'block' : 'none'}`}}>
         <div className="container flex flex-col justify-center items-center text-center w-full h-full">
           <h1 className="text-3xl font-semibold text-slate-200 mb-6">
             Thi GPLX A1
