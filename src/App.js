@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import './App.css'
+import Start from "./components/Start";
+import Quiz from './components/Quiz';
 
 function App() {
+  const [isStart, setIsStart] = useState(false)
+
+  const startQuiz = () => {
+    setIsStart(!isStart)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gray-800">
+      {/* Wellcome Page */}
+      <Start
+        isStart={isStart}
+        startQuiz={startQuiz}
+      />
+
+      {/* Quiz Page */}
+      <Quiz
+
+      />
     </div>
   );
 }
