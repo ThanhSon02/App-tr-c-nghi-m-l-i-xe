@@ -1,30 +1,25 @@
-import { useState } from 'react';
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 import Start from "./components/Start";
-import Quiz from './components/Quiz';
+import Quiz from "./components/Quiz";
 
 function App() {
-  const [isStart, setIsStart] = useState(false)
-  const [answer, setAnswer] = useState([])
+    const [isStart, setIsStart] = useState(false);
+    const [answer, setAnswer] = useState([]);
 
-  const startQuiz = () => {
-    setIsStart(!isStart)
-  }
+    const startQuiz = () => {
+        setIsStart(!isStart);
+    };
 
-  return (
-    <>
-      {/* Wellcome Page */}
-      <Start
-        isStart={isStart}
-        startQuiz={startQuiz}
-      />
+    return (
+        <>
+            {/* Wellcome Page */}
+            <Start isStart={isStart} startQuiz={startQuiz} />
 
-      {/* Quiz Page */}
-      <Quiz
-        sendAns={setAnswer}
-      />
-    </>
-  );
+            {/* Quiz Page */}
+            <Quiz sendAns={setAnswer} />
+        </>
+    );
 }
 
 export default App;
