@@ -1,7 +1,8 @@
-import { useState } from "react";
 import "./App.css";
+import { useState } from "react";
 import Start from "./components/Start";
 import Quiz from "./components/Quiz";
+import data from "./data";
 
 function App() {
     const [isStart, setIsStart] = useState(false);
@@ -17,7 +18,7 @@ function App() {
             <Start isStart={isStart} startQuiz={startQuiz} />
 
             {/* Quiz Page */}
-            <Quiz sendAns={setAnswer} />
+            <Quiz quizs={data} sendAns={setAnswer} />
         </>
     );
 }
