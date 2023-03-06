@@ -1,31 +1,72 @@
-import { useEffect, useState } from "react";
+import "./Quiz.css";
+import { useEffect, useRef, useState } from "react";
 import CountdownTimer from "./CountdownTimer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faChevronLeft,
     faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import "./Quiz.css";
 
-function Quiz({ quizs, sendAns }) {
-    const [checked, setChecked] = useState();
-    const [chosen, setChosen] = useState([]);
+function Quiz({ quizs, showQuiz, sendAns, showTheResult }) {
+    const [checked, setChecked] = useState("");
+    const [answer, setAnswer] = useState([]);
     const [questionId, setQuestionId] = useState(0);
 
-    console.log(checked);
-
-    const fc1 = (checked, chosen, id) => {};
+    const radioWrapper = useRef();
+    const nextBtn = useRef();
+    const prevBtn = useRef();
 
     useEffect(() => {
-        const temp = [];
-        if (checked) {
-            temp.push(checked);
+        if (checked !== "") {
+            nextBtn.current.classList.remove("disable");
+        } else {
+            nextBtn.current.classList.add("disable");
         }
-        setChosen(temp);
+    }, [checked]);
+
+    useEffect(() => {
+        if (answer[questionId] !== undefined) {
+            setChecked(answer[questionId].a);
+        }
+        console.log(answer);
     }, [questionId]);
 
+    const handlePrev = () => {
+        setQuestionId(questionId - 1);
+    };
+
+    const handleNext = () => {
+        if (checked === "") {
+            nextBtn.current.disabled = true;
+            return;
+        }
+        const ans = [...answer];
+        ans[questionId] = {
+            q: quizs.qs,
+            a: checked,
+        };
+        setAnswer(ans);
+        setChecked("");
+        setQuestionId(questionId + 1);
+        const findInputChecked =
+            radioWrapper.current.querySelector("input:checked");
+        if (findInputChecked) {
+            findInputChecked.checked = false;
+        }
+    };
+
+    const handleSubmit = () => {
+        showTheResult();
+        if (checked === "") {
+            return;
+        }
+    };
+
     return (
-        <section className="bg-slate-700 flex flex-col justify-center items-center min-h-screen">
+        <section
+            className="bg-slate-700 flex flex-col justify-center items-center min-h-screen"
+            style={{ display: `${showQuiz ? "block" : "none"}` }}
+        >
             <div className="flex justify-center align-middle my-12 text-center md:mt-0">
                 <CountdownTimer minutes={30} />
             </div>
@@ -57,44 +98,63 @@ function Quiz({ quizs, sendAns }) {
                         )}
                     </div>
                 </div>
-                <div className="answers grid gap-4">
-                    {quizs[questionId].anss.map((ans, key) => (
+                <div ref={radioWrapper} className="answers grid gap-4">
+                    {quizs[questionId].options.map((option, key) => (
                         <label
-                            htmlFor={key}
                             key={key}
-                            className="text-center border-4 rounded-3xl p-2 hover:border-stone-800 focus:border-red-700 text-lg text-slate-800 font-medium"
+                            className={
+                                option === checked
+                                    ? "text-center border-4 rounded-3xl p-2 text-lg text-slate-800 font-medium hover:border-emerald-300 border-orange-600"
+                                    : "text-center border-4 rounded-3xl p-2 text-lg text-slate-800 font-medium hover:border-emerald-300"
+                            }
                         >
-                            <input id={key} type={"radio"} />
-                            {ans}
+                            <input
+                                type="radio"
+                                name="answer"
+                                value={option}
+                                className="opacity-0"
+                                onChange={(e) => setChecked(e.target.value)}
+                                checked={option === checked}
+                            />
+                            {option}
                         </label>
                     ))}
                 </div>
                 <div className="col-span-2 grid grid-cols-2 gap-3">
+                    {/* Prev Button */}
                     <button
+                        ref={prevBtn}
+                        hidden={questionId === 0}
                         className={
-                            questionId === 0
-                                ? "px-3 py-2 border-2 rounded-md place-self-end disable"
-                                : "px-3 py-2 border-2 rounded-md place-self-end"
+                            "px-8 py-2 border-2 rounded-md place-self-start col-span-1 "
                         }
-                        onClick={() => {
-                            setQuestionId(questionId - 1);
-                        }}
-                        disabled={questionId === 0}
+                        onClick={handlePrev}
                     >
                         <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
+
+                    {/* Next Button */}
                     <button
+                        ref={nextBtn}
                         className={
-                            questionId === quizs.length - 1
-                                ? "px-3 py-2 border-2 rounded-md place-self-start disable"
-                                : "px-3 py-2 border-2 rounded-md place-self-start"
+                            " px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3 disable"
                         }
-                        onClick={() => {
-                            setQuestionId(questionId + 1);
-                        }}
-                        disabled={questionId === quizs.length - 1}
+                        onClick={handleNext}
+                        hidden={questionId === quizs.length - 1}
                     >
                         <FontAwesomeIcon icon={faChevronRight} />
+                    </button>
+
+                    {/* Submit Button */}
+
+                    <button
+                        className={
+                            "bg-violet-700 text-white font-medium hover:opacity-60 px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3 disable"
+                        }
+                        onClick={handleSubmit}
+                        hidden={questionId < quizs.length - 1}
+                    >
+                        Submit
                     </button>
                 </div>
             </div>

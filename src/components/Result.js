@@ -1,8 +1,8 @@
-function Start({ showStart, startQuiz }) {
+function Result({ showResult, startOver }) {
     return (
         <section
             className="bg-slate-700"
-            style={{ display: `${showStart ? "block" : "none"}` }}
+            style={{ display: `${showResult ? "block" : "none"}` }}
         >
             <div className="container flex flex-col justify-center items-center text-center w-full h-full">
                 <h1 className="text-3xl font-semibold text-slate-200 mb-6">
@@ -10,13 +10,13 @@ function Start({ showStart, startQuiz }) {
                 </h1>
                 <button
                     className="bg-slate-50 rounded px-8 py-2 text-base"
-                    onClick={startQuiz}
+                    onClick={startOver}
                 >
-                    Bắt đầu
+                    Kết quả
                 </button>
             </div>
         </section>
     );
 }
 
-export default Start;
+export default Result;
