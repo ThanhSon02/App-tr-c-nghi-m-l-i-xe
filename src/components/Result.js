@@ -1,19 +1,32 @@
-function Result({ showResult, startOver }) {
+function Result({ showResult, startOver, showAns }) {
     return (
         <section
-            className="bg-slate-700"
-            style={{ display: `${showResult ? "block" : "none"}` }}
+            className="bg-slate-700 h-screen justify-center items-center"
+            style={{ display: `${showResult ? "flex" : "none"}` }}
         >
-            <div className="container flex flex-col justify-center items-center text-center w-full h-full">
-                <h1 className="text-3xl font-semibold text-slate-200 mb-6">
-                    Thi GPLX A1
-                </h1>
-                <button
-                    className="bg-slate-50 rounded px-8 py-2 text-base"
-                    onClick={startOver}
-                >
+            <div className="bg-slate-100 h-2/5 w-4/5 container rounded flex flex-col justify-center items-center">
+                <h1 className="text-3xl font-semibold text-neutral-900 mb-6">
                     Kết quả
-                </button>
+                </h1>
+                <div>
+                    <h2>Điểm:</h2>
+                    <h3>Thời gian hoàn thành:</h3>
+                </div>
+                <div className="flex gap-96">
+                    <button
+                        className="bg-lime-800 rounded px-8 py-2 text-base"
+                        onClick={showAns}
+                    >
+                        Check your answer
+                    </button>
+
+                    <button
+                        className="bg-lime-800 rounded px-8 py-2 text-base"
+                        onClick={showAns}
+                    >
+                        Try again
+                    </button>
+                </div>
             </div>
         </section>
     );

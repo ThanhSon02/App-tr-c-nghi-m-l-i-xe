@@ -21,12 +21,17 @@ function App() {
         setShowStart(false);
         setShowQuiz(false);
         setShowResult(true);
+        console.log(answer);
     };
 
     const startOver = () => {
         setShowStart(true);
         setShowQuiz(false);
         setShowResult(false);
+    };
+
+    const showAns = () => {
+        console.log(answer);
     };
 
     return (
@@ -43,7 +48,11 @@ function App() {
             />
 
             {/* Result Page */}
-            <Result showResult={showResult} startOver={startOver} />
+            <Result
+                showResult={showResult}
+                showAns={showAns}
+                startOver={startOver}
+            />
         </>
     );
 }

@@ -7,7 +7,7 @@ import {
     faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Quiz({ quizs, showQuiz, sendAns, showTheResult }) {
+function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
     const [checked, setChecked] = useState("");
     const [answer, setAnswer] = useState([]);
     const [questionId, setQuestionId] = useState(0);
@@ -56,16 +56,27 @@ function Quiz({ quizs, showQuiz, sendAns, showTheResult }) {
     };
 
     const handleSubmit = () => {
-        showTheResult();
         if (checked === "") {
             return;
         }
+        const ans = [
+            ...answer,
+            (answer[questionId] = {
+                q: quizs.qs,
+                a: checked,
+            }),
+        ];
+
+        setAnswer(ans);
+        console.log(answer);
+        sendAns(answer);
+        showTheResult();
     };
 
     return (
         <section
-            className="bg-slate-700 flex flex-col justify-center items-center min-h-screen"
-            style={{ display: `${showQuiz ? "block" : "none"}` }}
+            className="bg-slate-700 flex flex-col h-screen justify-center items-center"
+            style={{ display: `${showQuiz ? "flex" : "none"}` }}
         >
             <div className="flex justify-center align-middle my-12 text-center md:mt-0">
                 <CountdownTimer minutes={30} />
@@ -149,7 +160,7 @@ function Quiz({ quizs, showQuiz, sendAns, showTheResult }) {
 
                     <button
                         className={
-                            "bg-violet-700 text-white font-medium hover:opacity-60 px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3 disable"
+                            "bg-violet-700 text-white font-medium hover:opacity-60 px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
                         }
                         onClick={handleSubmit}
                         hidden={questionId < quizs.length - 1}
