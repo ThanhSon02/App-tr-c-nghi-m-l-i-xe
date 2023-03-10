@@ -49,7 +49,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
     }, [checked]);
 
     useEffect(() => {
-        if (answer[questionId] !== undefined) {
+        if (answer[questionId] !== undefined) { 
             setChecked(answer[questionId].a);
         }
     }, [questionId]);

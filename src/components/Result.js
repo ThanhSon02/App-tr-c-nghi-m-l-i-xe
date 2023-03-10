@@ -53,11 +53,11 @@ function Result({ startOver, answers, timer }) {
                 </div>
             </section>
             <Modal showModal={showModal}>
-                <section className="main-modal p-7">
-                    <div className="flex justify-between bg-white items-center mb-4 sticky top-0 z-10">
+                <section className="main-modal p-7 pt-0">
+                    <div className="flex justify-between bg-white items-center mb-4 pt-7 pb-2 sticky top-0 z-10">
                         <h1 className="text-2xl font-bold">Your Answers</h1>
                         <button
-                            className="px-4 py-2 bg-indigo-500 rounded text-white"
+                            className="px-4 py-2 bg-indigo-500 rounded text-white hover:opacity-70"
                             onClick={handleShowModal}
                         >
                             <FontAwesomeIcon icon={faXmark} />
@@ -66,8 +66,8 @@ function Result({ startOver, answers, timer }) {
                     <div>
                         <ul>
                             {answers.map((result, index) => (
-                                <div key={index}>
-                                    <li className="question">{result.q}</li>
+                                <div key={index} className="mb-4">
+                                    <li className="question">Question {index + 1} : {result.q}</li>
                                     <p
                                         className={
                                             result.a === data[index].correctAns

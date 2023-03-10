@@ -19,7 +19,7 @@ function App() {
     };
 
     const startOver = () => {
-        setStep(2);
+        setStep(1);
     };
 
     return (
