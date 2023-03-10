@@ -11,7 +11,8 @@ const data = [
             "C. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.3",
             "D. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.4",
         ],
-        correctAns: 0,
+        correctAns:
+            "A. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.1",
     },
     {
         id: 1,
@@ -23,7 +24,8 @@ const data = [
             "C. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.3",
             "D. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.4",
         ],
-        correctAns: 0,
+        correctAns:
+            "A. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.1",
     },
     {
         id: 2,
@@ -35,7 +37,8 @@ const data = [
             "C. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.3",
             "D. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.9",
         ],
-        correctAns: 0,
+        correctAns:
+            "A. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.1",
     },
     {
         id: 3,
@@ -47,7 +50,8 @@ const data = [
             "C. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.5",
             "D. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.4",
         ],
-        correctAns: 0,
+        correctAns:
+            "A. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.1",
     },
     {
         id: 4,
@@ -59,7 +63,8 @@ const data = [
             "C. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.3",
             "D. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.4",
         ],
-        correctAns: 0,
+        correctAns:
+            "A. Là một phần của phần đường xe chạy được chia theo chiều dọc của đường, sử dụng cho xe chạy.1",
     },
 ];
 

@@ -7,52 +7,42 @@ import data from "./data";
 
 function App() {
     const [answer, setAnswer] = useState([]);
-
-    const [showStart, setShowStart] = useState(true);
-    const [showQuiz, setShowQuiz] = useState(false);
-    const [showResult, setShowResult] = useState(false);
+    const [timer, setTimer] = useState(0);
+    const [step, setStep] = useState(1);
 
     const startQuiz = () => {
-        setShowStart(false);
-        setShowQuiz(true);
+        setStep(2);
     };
 
     const showTheResult = () => {
-        setShowStart(false);
-        setShowQuiz(false);
-        setShowResult(true);
-        console.log(answer);
+        setStep(3);
     };
 
     const startOver = () => {
-        setShowStart(true);
-        setShowQuiz(false);
-        setShowResult(false);
-    };
-
-    const showAns = () => {
-        console.log(answer);
+        setStep(2);
     };
 
     return (
         <>
             {/* Wellcome Page */}
-            <Start showStart={showStart} startQuiz={startQuiz} />
+            {step === 1 && <Start startQuiz={startQuiz} />}
 
             {/* Quiz Page */}
-            <Quiz
-                showQuiz={showQuiz}
-                quizs={data}
-                sendAns={setAnswer}
-                showTheResult={showTheResult}
-            />
+            {step === 2 && (
+                <Quiz
+                    quizs={data}
+                    sendAns={setAnswer}
+                    showTheResult={showTheResult}
+                    minutes={0}
+                    seconds={10}
+                    sendTimer={setTimer}
+                />
+            )}
 
             {/* Result Page */}
-            <Result
-                showResult={showResult}
-                showAns={showAns}
-                startOver={startOver}
-            />
+            {step === 3 && (
+                <Result startOver={startOver} answers={answer} timer={timer} />
+            )}
         </>
     );
 }

@@ -1,13 +1,16 @@
-import "./Quiz.css";
-import { useEffect, useRef, useState } from "react";
-import CountdownTimer from "./CountdownTimer";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../App.css";
 import {
     faChevronLeft,
     faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useRef, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
+function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
+    const [_seconds, setSeconds] = useState(seconds);
+    const [_minutes, set_Minutes] = useState(minutes);
+    const [time, setTime] = useState(60);
+
     const [checked, setChecked] = useState("");
     const [answer, setAnswer] = useState([]);
     const [questionId, setQuestionId] = useState(0);
@@ -15,6 +18,27 @@ function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
     const radioWrapper = useRef();
     const nextBtn = useRef();
     const prevBtn = useRef();
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            if (_seconds > 0) {
+                setSeconds(_seconds - 1);
+            } else if (_minutes > 0) {
+                set_Minutes(_minutes - 1);
+                setSeconds(59);
+            } else {
+                clearInterval(intervalId);
+            }
+        }, 1000);
+
+        return () => {
+            clearInterval(intervalId);
+        };
+    }, [_minutes, _seconds]);
+
+    useEffect(() => {
+        setTime(_minutes * 60 + _seconds);
+    }, [_minutes, _seconds]);
 
     useEffect(() => {
         if (checked !== "") {
@@ -28,8 +52,23 @@ function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
         if (answer[questionId] !== undefined) {
             setChecked(answer[questionId].a);
         }
-        console.log(answer);
     }, [questionId]);
+
+    useEffect(() => {
+        if (time === 0) {
+            const ans = [
+                ...answer,
+                (answer[questionId] = {
+                    q: quizs[questionId].qs,
+                    a: checked,
+                }),
+            ];
+            setAnswer(ans);
+            sendAns(answer);
+            sendTimer(minutes * 60 + seconds);
+            showTheResult();
+        }
+    }, [time]);
 
     const handlePrev = () => {
         setQuestionId(questionId - 1);
@@ -42,7 +81,7 @@ function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
         }
         const ans = [...answer];
         ans[questionId] = {
-            q: quizs.qs,
+            q: quizs[questionId].qs,
             a: checked,
         };
         setAnswer(ans);
@@ -62,24 +101,25 @@ function Quiz({ quizs, showQuiz = true, sendAns, showTheResult }) {
         const ans = [
             ...answer,
             (answer[questionId] = {
-                q: quizs.qs,
+                q: quizs[questionId].qs,
                 a: checked,
             }),
         ];
 
         setAnswer(ans);
-        console.log(answer);
         sendAns(answer);
+        sendTimer(minutes * 60 + seconds - time);
         showTheResult();
     };
 
     return (
-        <section
-            className="bg-slate-700 flex flex-col h-screen justify-center items-center"
-            style={{ display: `${showQuiz ? "flex" : "none"}` }}
-        >
+        <section className="bg-slate-700 flex flex-col h-screen justify-center items-center">
+            {/* Timer section */}
             <div className="flex justify-center align-middle my-12 text-center md:mt-0">
-                <CountdownTimer minutes={30} />
+                <h3 className="text-red-700 font-semibold text-5xl">
+                    {_minutes < 10 ? "0" + _minutes : _minutes} :{" "}
+                    {_seconds < 10 ? "0" + _seconds : _seconds}
+                </h3>
             </div>
             <div className="drop-shadow-lg bg-slate-100 rounded text-zinc-900 w-4/5 p-6 grid grid-cols-1 gap-8 md:grid-cols-2 md:h-450">
                 <div className="question grid gap-4">

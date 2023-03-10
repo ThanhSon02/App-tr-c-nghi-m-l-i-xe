@@ -1,0 +1,56 @@
+.disable {
+    opacity: 0.2;
+}
+
+.checked {
+    border-color: coral;
+}
+
+.modal {
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.main-modal {
+    position: absolute;
+    height: 80%;
+    width: 80%;
+    border-radius: 8px;
+    background: white;
+    overflow: auto;
+}
+
+.question {
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.bg-correct {
+    background-color: rgb(65, 180, 65);
+    color: black;
+    padding: 4px 6px;
+    font-size: 16px;
+}
+
+.bg-wrong {
+    background-color: rgb(180, 65, 65);
+    color: black;
+    padding: 4px 6px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.bg-warning {
+    background-color: rgb(212, 207, 41);
+    color: black;
+    padding: 4px 6px;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
