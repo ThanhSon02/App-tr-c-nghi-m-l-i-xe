@@ -1,4 +1,5 @@
 import data from "../data";
+import '../App.css'
 import { useEffect, useState } from "react";
 import Modal from "./Modal";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -26,28 +27,33 @@ function Result({ startOver, answers, timer }) {
         <div className="">
             <section className="bg-slate-700 h-screen flex justify-center items-center">
                 <div className="bg-slate-100 h-2/5 w-4/5 container rounded flex flex-col justify-center items-center">
-                    <h1 className="text-3xl font-semibold text-neutral-900 mb-6">
+                    <h1 className="text-3xl font-bold text-neutral-900 mb-6">
                         Kết quả
                     </h1>
-                    <div>
-                        <h2>
-                            Điểm: {correctAns} / {data.length}
+                    <div className="mb-6 text-center">
+                        <h2 className="text-lg">
+                            Số câu trả lời đúng: {correctAns} / {data.length}
                         </h2>
-                        <h3>Thời gian hoàn thành: {timer} giây</h3>
+                        <h3 className="text-lg">Thời gian hoàn thành: <span className="text-red-500">{timer}</span > giây</h3>
+                        {correctAns >= 3 ? 
+                            <h3 className="text-xl font-medium">Chúc mừng bạn đã vượt qua phần thi lý thuyết!</h3>
+                            :
+                            <h3 className="text-xl font-medium">Bạn đã trượt phần thi lý thuyết!</h3>
+                        }
                     </div>
                     <div className="flex gap-96">
                         <button
-                            className="bg-lime-800 rounded px-8 py-2 text-base"
+                            className="button rounded px-8 py-2 text-base"
                             onClick={() => setShowModal(!showModal)}
                         >
-                            Check your answer
+                            Kết quả chi tiết
                         </button>
 
                         <button
-                            className="bg-lime-800 rounded px-8 py-2 text-base"
+                            className="button rounded px-8 py-2 text-base"
                             onClick={startOver}
                         >
-                            Try again
+                            Làm lại
                         </button>
                     </div>
                 </div>
@@ -55,9 +61,9 @@ function Result({ startOver, answers, timer }) {
             <Modal showModal={showModal}>
                 <section className="main-modal p-7 pt-0">
                     <div className="flex justify-between bg-white items-center mb-4 pt-7 pb-2 sticky top-0 z-10">
-                        <h1 className="text-2xl font-bold">Your Answers</h1>
+                        <h1 className="text-2xl font-bold">Kết quả chi tiết</h1>
                         <button
-                            className="px-4 py-2 bg-indigo-500 rounded text-white hover:opacity-70"
+                            className="px-4 py-2 button rounded text-white"
                             onClick={handleShowModal}
                         >
                             <FontAwesomeIcon icon={faXmark} />
@@ -68,6 +74,7 @@ function Result({ startOver, answers, timer }) {
                             {answers.map((result, index) => (
                                 <div key={index} className="mb-4">
                                     <li className="question">Question {index + 1} : {result.q}</li>
+                                    <img src={result.img} alt=""/>
                                     <p
                                         className={
                                             result.a === data[index].correctAns

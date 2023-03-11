@@ -6,7 +6,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
+function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTimer }) {
     const [_seconds, setSeconds] = useState(seconds);
     const [_minutes, set_Minutes] = useState(minutes);
     const [time, setTime] = useState(60);
@@ -42,8 +42,10 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
 
     useEffect(() => {
         if (checked !== "") {
+            nextBtn.current.disabled = false
             nextBtn.current.classList.remove("disable");
         } else {
+            nextBtn.current.disabled = true
             nextBtn.current.classList.add("disable");
         }
     }, [checked]);
@@ -60,6 +62,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
                 ...answer,
                 (answer[questionId] = {
                     q: quizs[questionId].qs,
+                    img: quizs[questionId].image,
                     a: checked,
                 }),
             ];
@@ -75,13 +78,10 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
     };
 
     const handleNext = () => {
-        if (checked === "") {
-            nextBtn.current.disabled = true;
-            return;
-        }
         const ans = [...answer];
         ans[questionId] = {
             q: quizs[questionId].qs,
+            img: quizs[questionId].image,
             a: checked,
         };
         setAnswer(ans);
@@ -102,6 +102,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
             ...answer,
             (answer[questionId] = {
                 q: quizs[questionId].qs,
+                img: quizs[questionId].image,
                 a: checked,
             }),
         ];
@@ -113,18 +114,20 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
     };
 
     return (
-        <section className="bg-slate-700 flex flex-col h-screen justify-center items-center">
+        <section className="bg-secondary flex flex-col h-screen justify-center items-center p-6">
             {/* Timer section */}
             <div className="flex justify-center align-middle my-12 text-center md:mt-0">
-                <h3 className="text-red-700 font-semibold text-5xl">
+                <h3 className="text-white font-semibold text-5xl">
                     {_minutes < 10 ? "0" + _minutes : _minutes} :{" "}
                     {_seconds < 10 ? "0" + _seconds : _seconds}
                 </h3>
             </div>
-            <div className="drop-shadow-lg bg-slate-100 rounded text-zinc-900 w-4/5 p-6 grid grid-cols-1 gap-8 md:grid-cols-2 md:h-450">
+
+            {/* Question */}
+            <div className="drop-shadow-[0_4px_32px_0_rgba(15, 23, 42, 0.15)] bg-white rounded text-zinc-900 w-4/5 p-6 grid grid-cols-1 gap-8 md:grid-cols-2 md:h-450">
                 <div className="question grid gap-4">
                     <h1 className="text-2xl font-semibold row-span-1">
-                        Question: {quizs[questionId].id + 1} / {quizs.length}
+                        Câu: {quizs[questionId].id + 1} / {quizs.length}
                     </h1>
                     <div className="grid row-span-4 gap-3">
                         <h4
@@ -149,14 +152,16 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
                         )}
                     </div>
                 </div>
+
+                {/* Options */}
                 <div ref={radioWrapper} className="answers grid gap-4">
                     {quizs[questionId].options.map((option, key) => (
                         <label
                             key={key}
                             className={
                                 option === checked
-                                    ? "text-center border-4 rounded-3xl p-2 text-lg text-slate-800 font-medium hover:border-emerald-300 border-orange-600"
-                                    : "text-center border-4 rounded-3xl p-2 text-lg text-slate-800 font-medium hover:border-emerald-300"
+                                    ? "text-center flex justify-center items-center border-2 rounded-3xl p-2 text-lg text-slate-800 font-medium option active"
+                                    : "text-center flex justify-center items-center border-2 rounded-3xl p-2 text-lg text-slate-800 font-medium option"
                             }
                         >
                             <input
@@ -167,17 +172,19 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
                                 onChange={(e) => setChecked(e.target.value)}
                                 checked={option === checked}
                             />
-                            {option}
+                            <p>{option}</p>
                         </label>
                     ))}
                 </div>
+
+                {/* Buttons */}
                 <div className="col-span-2 grid grid-cols-2 gap-3">
                     {/* Prev Button */}
                     <button
                         ref={prevBtn}
                         hidden={questionId === 0}
                         className={
-                            "px-8 py-2 border-2 rounded-md place-self-start col-span-1 "
+                            "button px-8 py-2 border-2 rounded-md place-self-start col-span-1 "
                         }
                         onClick={handlePrev}
                     >
@@ -188,7 +195,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
                     <button
                         ref={nextBtn}
                         className={
-                            " px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3 disable"
+                            "button px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
                         }
                         onClick={handleNext}
                         hidden={questionId === quizs.length - 1}
@@ -197,10 +204,9 @@ function Quiz({ quizs, sendAns, showTheResult, minutes, seconds, sendTimer }) {
                     </button>
 
                     {/* Submit Button */}
-
                     <button
                         className={
-                            "bg-violet-700 text-white font-medium hover:opacity-60 px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
+                            "button font-medium px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
                         }
                         onClick={handleSubmit}
                         hidden={questionId < quizs.length - 1}

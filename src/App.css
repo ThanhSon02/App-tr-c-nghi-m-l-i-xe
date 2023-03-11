@@ -1,9 +1,27 @@
-.disable {
-    opacity: 0.2;
+.active {
+    background-color: #7E22CE;
+    color: white;
+}
+
+.option:hover {
+    border-color: #7E22CE;
 }
 
 .checked {
     border-color: coral;
+}
+
+.button {
+    color: white;
+    background-color: #9333EA;
+}
+
+.button.disable {
+    background-color: #F3E8FF !important;
+}
+
+.button:hover {
+    background-color: #7E22CE;
 }
 
 .modal {
@@ -21,9 +39,8 @@
     position: absolute;
     height: 80%;
     width: 80%;
-    border-radius: 8px;
     background: white;
-    overflow: auto;
+    overflow-y: auto;
 }
 
 .question {

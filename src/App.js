@@ -33,8 +33,8 @@ function App() {
                     quizs={data}
                     sendAns={setAnswer}
                     showTheResult={showTheResult}
-                    minutes={0}
-                    seconds={10}
+                    minutes={30}
+                    seconds={0}
                     sendTimer={setTimer}
                 />
             )}
