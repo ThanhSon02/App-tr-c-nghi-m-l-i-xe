@@ -26,7 +26,7 @@ function Result({ startOver, answers, timer }) {
     return (
         <div className="">
             <section className="bg-slate-700 h-screen flex justify-center items-center">
-                <div className="bg-slate-100 h-2/5 w-4/5 container rounded flex flex-col justify-center items-center">
+                <div className="bg-slate-100 md:h-2/5 md:w-4/5 w-5/6 h-3/5 p-4 container rounded flex flex-col justify-center items-center">
                     <h1 className="text-3xl font-bold text-neutral-900 mb-6">
                         Kết quả
                     </h1>
@@ -41,16 +41,16 @@ function Result({ startOver, answers, timer }) {
                             <h3 className="text-xl font-medium">Bạn đã trượt phần thi lý thuyết!</h3>
                         }
                     </div>
-                    <div className="flex gap-96">
+                    <div className="flex gap-16 md:gap-96">
                         <button
-                            className="button rounded px-8 py-2 text-base"
+                            className="button rounded px-2 py-3 md:px-2 md:py-2 text-base"
                             onClick={() => setShowModal(!showModal)}
                         >
                             Kết quả chi tiết
                         </button>
 
                         <button
-                            className="button rounded px-8 py-2 text-base"
+                            className="button rounded px-2 py-3 md:px-2 md:py-2 text-base"
                             onClick={startOver}
                         >
                             Làm lại

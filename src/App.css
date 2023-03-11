@@ -38,7 +38,7 @@
 .main-modal {
     position: absolute;
     height: 80%;
-    width: 80%;
+    width: 85%;
     background: white;
     overflow-y: auto;
 }

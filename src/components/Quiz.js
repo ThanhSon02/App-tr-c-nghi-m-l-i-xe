@@ -6,7 +6,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTimer }) {
+function Quiz({ quizs, sendAns, showTheResult, minutes = 20, seconds = 0, sendTimer }) {
     const [_seconds, setSeconds] = useState(seconds);
     const [_minutes, set_Minutes] = useState(minutes);
     const [time, setTime] = useState(60);
@@ -114,22 +114,20 @@ function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTi
     };
 
     return (
-        <section className="bg-secondary flex flex-col h-screen justify-center items-center p-6">
+        <section className="bg-secondary flex flex-col h-screen justify-center items-center p-6 overflow-y-auto">
             {/* Timer section */}
-            <div className="flex justify-center align-middle my-12 text-center md:mt-0">
-                <h3 className="text-white font-semibold text-5xl">
+                <h3 className="grid text-center my-10 md:mt-0 text-white font-semibold text-5xl">
                     {_minutes < 10 ? "0" + _minutes : _minutes} :{" "}
                     {_seconds < 10 ? "0" + _seconds : _seconds}
                 </h3>
-            </div>
 
             {/* Question */}
-            <div className="drop-shadow-[0_4px_32px_0_rgba(15, 23, 42, 0.15)] bg-white rounded text-zinc-900 w-4/5 p-6 grid grid-cols-1 gap-8 md:grid-cols-2 md:h-450">
-                <div className="question grid gap-4">
+            <div className="drop-shadow-[0_4px_32px_0_rgba(15, 23, 42, 0.15)] bg-white rounded text-zinc-900 md:w-4/5 p-6 md:p-6 grid gap-6 md:gap-8 md:grid-cols-2 md:h-450 mb10 md:mb-0">
+                <div className="question grid col-span-3 md:col-span-1 gap-4">
                     <h1 className="text-2xl font-semibold row-span-1">
                         Câu: {quizs[questionId].id + 1} / {quizs.length}
                     </h1>
-                    <div className="grid row-span-4 gap-3">
+                    <div className="grid md:row-span-4 md:gap-3">
                         <h4
                             className={
                                 quizs[questionId].image
@@ -154,7 +152,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTi
                 </div>
 
                 {/* Options */}
-                <div ref={radioWrapper} className="answers grid gap-4">
+                <div ref={radioWrapper} className="answers grid col-span-3 md:col-span-1 gap-4">
                     {quizs[questionId].options.map((option, key) => (
                         <label
                             key={key}
@@ -178,13 +176,13 @@ function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTi
                 </div>
 
                 {/* Buttons */}
-                <div className="col-span-2 grid grid-cols-2 gap-3">
+                <div className="col-span-3 grid grid-cols-3 md:grid-cols-2 gap-3">
                     {/* Prev Button */}
                     <button
                         ref={prevBtn}
                         hidden={questionId === 0}
                         className={
-                            "button px-8 py-2 border-2 rounded-md place-self-start col-span-1 "
+                            "button px-8 py-2 border-2 rounded-md place-self-start col-span-1"
                         }
                         onClick={handlePrev}
                     >
@@ -195,7 +193,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTi
                     <button
                         ref={nextBtn}
                         className={
-                            "button px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
+                            "button px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-4"
                         }
                         onClick={handleNext}
                         hidden={questionId === quizs.length - 1}
@@ -206,7 +204,7 @@ function Quiz({ quizs, sendAns, showTheResult, minutes = 30, seconds = 0, sendTi
                     {/* Submit Button */}
                     <button
                         className={
-                            "button font-medium px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-3"
+                            "button font-medium px-8 py-2 border-2 rounded-md place-self-end col-span-1 col-end-4"
                         }
                         onClick={handleSubmit}
                         hidden={questionId < quizs.length - 1}
